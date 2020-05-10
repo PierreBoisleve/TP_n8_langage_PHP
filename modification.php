@@ -93,32 +93,39 @@ $siecle=$_POST['century'];
 $citation=$_POST['citationChoice'];
 $citationId=$_POST['citationChoiceId'];
 
-$nbr_citations = 0;
-$query0 = "SELECT phrase FROM citation";
-$nbr = $db->query($query0);
-foreach ($nbr as $data) {
-    $nbr_citations++;
-}
-$nbr_citations+=1;
-$sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (".$nbr_citations.", ".$citation.", ".$auteurId.", ".$siecleId.")";
-if ($db->query($sql) === TRUE) {
-    echo "New citation added successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $db->error;
+if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['authorFirstName'] != NULL
+    && $_POST['centuryId'] != NULL && $_POST['century'] != NULL && $_POST['citationChoice'] != NULL) {
+
+    $nbr_citations = 0;
+    $query0 = "SELECT phrase FROM citation";
+    $nbr = $db->query($query0);
+    foreach ($nbr as $data) {
+        $nbr_citations++;
+    }
+    $nbr_citations += 1;
+
+    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
+    if ($db->query($sql) === TRUE) {
+        echo "New citation added successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $db->error;
+    }
+
+    $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (" . $auteurId . ", " . $auteurNom . ", " . $auteurPrenom . ")";
+    if ($db->query($sql2) === TRUE) {
+        echo "New author added successfully";
+    } else {
+        echo "Error: " . $sql2 . "<br>" . $db->error;
+    }
+
+    $sql3 = "INSERT INTO siecle (id, numero) VALUES (" . $siecleId . ", " . $siecle . ")";
+    if ($db->query($sql3) === TRUE) {
+        echo "New author added successfully";
+    } else {
+        echo "Error: " . $sql3 . "<br>" . $db->error;
+    }
 }
 
-$sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (".$auteurId.", ".$auteurNom.", ".$auteurPrenom.")";
-if ($db->query($sql2) === TRUE) {
-    echo "New author added successfully";
-} else {
-    echo "Error: " . $sql2 . "<br>" . $db->error;
+if($_POST['citationChoiceId'] != NULL) {
+    $db->exec("DELETE FROM citation WHERE id=" . $citationId);
 }
-
-$sql3 = "INSERT INTO siecle (id, numero) VALUES (".$siecleId.", ".$siecle.")";
-if ($db->query($sql3) === TRUE) {
-    echo "New author added successfully";
-} else {
-    echo "Error: " . $sql3 . "<br>" . $db->error;
-}
-
-$db->exec("DELETE FROM citation WHERE id=".$citationId);
