@@ -31,7 +31,6 @@ include 'database/connexpdo.php';
 //Connect BDD
 $db = connexpdo('pgsql:dbname=citations;host=localhost;port=5433','postgres','new_password');
 
-$r=rand (1, 6);
 $nbr_citations = 0;
 
 echo '<div class="container col-sm-9 jumbotron" ><h1>La citation du jour</h1><hr>';
@@ -41,10 +40,11 @@ $nbr = $db->query($query0);
 foreach ($nbr as $data) {
     $nbr_citations++;
 }
+$r=rand (1, $nbr_citations);
+
 
 echo '<p>Il y a <strong>'. $nbr_citations .' </strong> citations répertoriées.</p>';
 echo "<p>Et voici l'une d'entre elles qui est générée aléatoirement : </p>";
-
 
 
 //Citation de la BDD

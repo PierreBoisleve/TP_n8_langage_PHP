@@ -104,13 +104,6 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
     }
     $nbr_citations += 1;
 
-    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
-    if ($db->query($sql) === TRUE) {
-        print_r( "New citation added successfully");
-    } else {
-        print_r("Error: " . $sql . "<br>" . $db->error);
-    }
-
     $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (" . $auteurId . ", " . $auteurNom . ", " . $auteurPrenom . ")";
     if ($db->query($sql2) === TRUE) {
         print_r("New author added successfully");
@@ -120,9 +113,16 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 
     $sql3 = "INSERT INTO siecle (id, numero) VALUES (" . $siecleId . ", " . $siecle . ")";
     if ($db->query($sql3) === TRUE) {
-        print_r("New author added successfully");
+        print_r("New siecle added successfully");
     } else {
         print_r("Error: " . $sql3 . "<br>" . $db->error);
+    }
+
+    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
+    if ($db->query($sql) === TRUE) {
+        print_r( "New citation added successfully");
+    } else {
+        print_r("Error: " . $sql . "<br>" . $db->error);
     }
 }
 
