@@ -26,7 +26,7 @@
 <body>
 <br>
 <?php
-include 'connexpdo.php';
+include 'database/connexpdo.php';
 
 //Connect BDD
 $db = connexpdo('pgsql:dbname=citations;host=localhost;port=5433','postgres','new_password');
