@@ -85,13 +85,13 @@ echo'           </select>
 
 echo '</div>';
 
+//Formulaire d'ajout
 $auteurId=$_POST['authorId'];
 $auteurNom=$_POST['authorLastName'];
 $auteurPrenom=$_POST['authorFirstName'];
 $siecleId=$_POST['centuryId'];
 $siecle=$_POST['century'];
 $citation=$_POST['citationChoice'];
-$citationId=$_POST['citationChoiceId'];
 
 if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['authorFirstName'] != NULL
     && $_POST['centuryId'] != NULL && $_POST['century'] != NULL && $_POST['citationChoice'] != NULL) {
@@ -106,25 +106,28 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 
     $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
     if ($db->query($sql) === TRUE) {
-        echo "New citation added successfully";
+        print_r( "New citation added successfully");
     } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+        print_r("Error: " . $sql . "<br>" . $db->error);
     }
 
     $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (" . $auteurId . ", " . $auteurNom . ", " . $auteurPrenom . ")";
     if ($db->query($sql2) === TRUE) {
-        echo "New author added successfully";
+        print_r("New author added successfully");
     } else {
-        echo "Error: " . $sql2 . "<br>" . $db->error;
+        print_r("Error: " . $sql2 . "<br>" . $db->error);
     }
 
     $sql3 = "INSERT INTO siecle (id, numero) VALUES (" . $siecleId . ", " . $siecle . ")";
     if ($db->query($sql3) === TRUE) {
-        echo "New author added successfully";
+        print_r("New author added successfully");
     } else {
-        echo "Error: " . $sql3 . "<br>" . $db->error;
+        print_r("Error: " . $sql3 . "<br>" . $db->error);
     }
 }
+
+//Formulaire de Suppression
+$citationId=$_POST['citationChoiceId'];
 
 if($_POST['citationChoiceId'] != NULL) {
     $db->exec("DELETE FROM citation WHERE id=" . $citationId);
