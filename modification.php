@@ -127,6 +127,7 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 }
 
 //Formulaire de Suppression
+
 $citationId=$_POST['citationChoiceId'];
 
 if($_POST['citationChoiceId'] != NULL) {
