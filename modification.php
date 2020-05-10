@@ -86,28 +86,15 @@ echo'           </select>
 echo '</div>';
 
 //Formulaire d'ajout
-$auteurId=$_POST['authorId'];
-$auteurNom=$_POST['authorLastName'];
-$auteurPrenom=$_POST['authorFirstName'];
-$siecleId=$_POST['centuryId'];
-$siecle=$_POST['century'];
-$citation=$_POST['citationChoice'];
 
 if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['authorFirstName'] != NULL
     && $_POST['centuryId'] != NULL && $_POST['century'] != NULL && $_POST['citationChoice'] != NULL) {
 
-    $nbr_citations = 0;
-    $query0 = "SELECT phrase FROM citation";
-    $nbr = $db->query($query0);
-    foreach ($nbr as $data) {
-        $nbr_citations++;
-    }
-    $nbr_citations += 1;
-    //$nbr_citations=$siecleId+$auteurId;
+    $nbr_citations=$_POST['centuryId']+$_POST['authorId'];
 
     $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (?, ?, ?)";
     $sqlR2 = $db->prepare($sql2);
-    $sqlR2->execute([$auteurId, $auteurNom, $auteurPrenom]);
+    $sqlR2->execute([$_POST['authorId'], $_POST['authorLastName'], $_POST['authorFirstName']]);
 
 //    $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (" . $auteurId . ", " . $auteurNom . ", " . $auteurPrenom . ")";
 //    if ($db->query($sql2) === TRUE) {
@@ -118,7 +105,7 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 
     $sql3 = "INSERT INTO siecle (id, numero) VALUES (?, ?)";
     $sqlR3 = $db->prepare($sql3);
-    $sqlR3->execute([$siecleId, $siecle]);
+    $sqlR3->execute([$_POST['centuryId'], $_POST['century']]);
 
 //    $sql3 = "INSERT INTO siecle (id, numero) VALUES (" . $siecleId . ", " . $siecle . ")";
 //    if ($db->query($sql3) === TRUE) {
@@ -129,7 +116,7 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 
     $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (?, ?, ?, ?)";
     $sqlR = $db->prepare($sql);
-    $sqlR->execute([$nbr_citations, $citation, $auteurId, $siecleId]);
+    $sqlR->execute([$nbr_citations, $_POST['citationChoice'], $_POST['authorId'], $_POST['centuryId']]);
 
 //    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
 //    if ($db->query($sql) === TRUE) {
