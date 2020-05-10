@@ -103,6 +103,7 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
         $nbr_citations++;
     }
     $nbr_citations += 1;
+    //$nbr_citations=$siecleId+$auteurId;
 
     $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (" . $auteurId . ", " . $auteurNom . ", " . $auteurPrenom . ")";
     if ($db->query($sql2) === TRUE) {
