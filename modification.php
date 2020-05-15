@@ -60,7 +60,7 @@ echo '<div class="container col-sm-9 jumbotron" ><h1>Ajouter une citation</h1><h
             </div>
             <div class="form-group">
                 <label>Citation</label>
-                <input name="citationChoice" type="text" class="form-control" required>
+                <input name="citation" type="text" class="form-control" required>
             </div><br>
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
@@ -88,9 +88,7 @@ echo '</div>';
 //Formulaire d'ajout
 
 if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['authorFirstName'] != NULL
-    && $_POST['centuryId'] != NULL && $_POST['century'] != NULL && $_POST['citationChoice'] != NULL) {
-
-    $nbr_citations=$_POST['centuryId']+$_POST['authorId'];
+    && $_POST['centuryId'] != NULL && $_POST['century'] != NULL && $_POST['citation'] != NULL) {
 
     $sql2 = "INSERT INTO auteur (id, nom, prenom) VALUES (?, ?, ?)";
     $sqlR2 = $db->prepare($sql2);
@@ -112,11 +110,13 @@ if($_POST['authorId'] != NULL && $_POST['authorLastName'] != NULL && $_POST['aut
 //        print_r("New siecle added successfully");
 //    } else {
 //        print_r("Error: " . $sql3 . "<br>" . $db->error);
-//    }
+//    }sud
 
-    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (?, ?, ?, ?)";
-    $sqlR = $db->prepare($sql);
-    $sqlR->execute([$nbr_citations, $_POST['citationChoice'], $_POST['authorId'], $_POST['centuryId']]);
+    $nbr_citations=$_POST['centuryId']+$_POST['authorId'];
+
+    $sql4 = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (?, ?, ?, ?)";
+    $sqlR4 = $db->prepare($sql4);
+    $sqlR4->execute([$nbr_citations, $_POST["citation"], $_POST['authorId'], $_POST['centuryId']]);
 
 //    $sql = "INSERT INTO citation (id, phrase, auteurid, siecleid) VALUES (" . $nbr_citations . ", " . $citation . ", " . $auteurId . ", " . $siecleId . ")";
 //    if ($db->query($sql) === TRUE) {
