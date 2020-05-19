@@ -1,1 +1,0 @@
-SELECT phrase FROM citation WHERE id=1;

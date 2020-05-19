@@ -35,8 +35,9 @@ try{
 } catch(PDOException $e){
     echo 'ERROR: ' . $e->getMessage();
 }
+?>
 
-echo '<div class="container col-sm-9 jumbotron" ><h1>Ajouter une citation</h1><hr>
+<div class="container col-sm-9 jumbotron" ><h1>Ajouter une citation</h1><hr>
         <form method="POST" action="modification.php">
             <div class="form-group">
                 <label>ID de l\'auteur</label>
@@ -64,8 +65,8 @@ echo '<div class="container col-sm-9 jumbotron" ><h1>Ajouter une citation</h1><h
             </div><br>
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
-<br><br>';
-
+<br><br>
+<?php
 echo '<h1>Supprimer une citation</h1><hr><br>
         <form method="POST" action="modification.php">
             <div class="form-group">
